@@ -1,0 +1,116 @@
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/*
+.jupyter/
+.ipython/
+
+# Raw datasets (usually large and should not be in version control)
+data/raw/
+data/external/
+datasets/
+*.csv
+*.tsv
+*.json
+*.parquet
+*.hdf5
+*.h5
+*.pickle
+*.pkl
+*.feather
+
+# Exploratory data analysis outputs
+eda_output/
+exploratory/
+analysis_results/
+plots/
+figures/
+*.png
+*.jpg
+*.jpeg
+*.svg
+*.pdf
+
+# Research notebooks and temporary files
+research_notebooks/
+scratch/
+temp_analysis/
+prototype/
+*.tmp
+*.temp
+
+# Data profiling reports
+profiling_reports/
+data_quality/
+*.html
+report_*.json
+
+# Virtual environment
+venv/
+.venv/
+env/
+ENV/
+conda-env/
+.conda/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Research databases and caches
+cache/
+.cache/
+*.db
+*.sqlite3
+research.db
+
+# Temporary model files
+temp_models/
+scratch_models/
+*.joblib
+*.model
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment variables
+.env
+.env.local
+research_config.py
+
+# Logs
+*.log
+research.log
+analysis.log
+
+# Statistical analysis outputs
+stats_output/
+correlation_matrices/
+feature_importance/
+
+# Documentation drafts
+draft_docs/
+research_notes/
+*.md.backup
+
+# Testing and validation
+test_results/
+validation_output/
+cross_validation/
+
+# data
+CarCrash/*
+model_output/*
+
+#Token
+token.txt
+
+main.py
