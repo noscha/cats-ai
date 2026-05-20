@@ -28,7 +28,7 @@ figures/
 *.jpg
 *.jpeg
 *.svg
-*.pdf
+#*.pdf
 
 # Research notebooks and temporary files
 research_notebooks/
