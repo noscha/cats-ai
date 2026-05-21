@@ -23,7 +23,7 @@ dependencies = [
     "torchcodec>=0.12",
     "torchvision>=0.27.0",
     "tqdm>=4.66.5",
-    "transformers>=4.57.6",
+    "transformers[torch]>=4.57.6",
 ]
 
 [tool.uv.sources]
