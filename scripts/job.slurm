@@ -9,4 +9,4 @@
 #SBATCH --ntasks=1
 #SBATCH --mem=64GB
 
-uv run python main.py
+uv run python run_trial.py.py

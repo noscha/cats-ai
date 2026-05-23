@@ -106,11 +106,14 @@ test_results/
 validation_output/
 cross_validation/
 
+# Package
+*.egg-info/
+.eggs/
+build/
+dist/
+
 # data
 CarCrash/*
-model_output/*
 
 #Token
 token.txt
-
-main.py
