@@ -1,3 +1,6 @@
+Classification:
+
+
 === SUMMARY ===
 Valid predictions: 100.0%
 Detection accuracy: 0.927
@@ -7,4 +10,12 @@ Counter({('normal', False): 147, ('crash', True): 131, ('crash', False): 19, ('n
 Saved to: /home/noah/cats_ai/trial_results.json
 
 
+Prediction:
 
+=== SUMMARY ===
+Valid predictions: 100.0%
+Detection accuracy: 0.736
+
+Breakdown:
+Counter({('normal', False): 300, ('crash', False): 119, ('crash', True): 31})
+Saved to: /home/noah/cats_ai/model_output/trial_results.json
