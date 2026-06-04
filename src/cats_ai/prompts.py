@@ -18,12 +18,15 @@ Rules:
 - accident_present must be true only if a collision, crash, impact, or clear accident is visible.
 - accident_present must be false if traffic looks normal, risky but no crash is visible, or the situation is unclear.
 - confidence must be between 0.0 and 1.0.
-- scene_description should describe only what is visible, in maximum 1 sentence.
-- main_objects should list the main visible traffic participants or scene objects.
-- risk_factors should list visible risk factors only.
-- reasoning should explain why accident_present is true or false, in maximum 1 sentence.
+- scene_description should describe only visible facts in 2-3 concise sentences.
+- main_objects should list the main visible traffic participants or scene objects, with 3-8 items.
+- risk_factors should list visible factors that may have contributed to the accident or increased accident risk, with 1-6 items.
+- Focus risk_factors on pre-impact or around-impact evidence such as close spacing, crossing paths, high closing speed, sudden braking, lane changes, loss of control, poor visibility, wet/icy road, or obstructed view.
+- Do not list the accident itself as a risk factor; avoid entries like "collision", "visible impact", or "crash".
+- If no accident is visible and no clear risk factors are visible, use ["none obvious"].
+- reasoning should explain the accident label using visible evidence in 2-3 concise sentences.
 - uncertainty must be one of: "low", "medium", "high".
-- Do not invent causes, traffic violations, or unrealistic objects/events that are not visually supported.
+- Do not invent causes, traffic violations, intentions, hidden events, or unrealistic objects/events that are not visually supported.
 - Output raw JSON only. Do not wrap it in Markdown. Do not use ```json code fences.
 """.strip()
 

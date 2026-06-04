@@ -21,7 +21,7 @@ SFT_PATH = OUTPUT_ROOT / "sft"
 
 MODEL_ID = "Qwen/Qwen3-VL-2B-Instruct"
 HF_TOKEN = open("token.txt", "r").readline()
-MAX_NEW_TOKENS = 64  # 400 and above for analysis, 64 for accident detection
+MAX_NEW_TOKENS = 500  # 400 and above for analysis, 64 for accident detection
 
 
 def seed_everything(seed: int = 42, deterministic: bool = False) -> None:
