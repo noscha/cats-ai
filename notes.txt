@@ -19,3 +19,9 @@ Detection accuracy: 0.736
 Breakdown:
 Counter({('normal', False): 300, ('crash', False): 119, ('crash', True): 31})
 Saved to: /home/noah/cats_ai/model_output/trial_results.json
+
+
+
+{"accident_present":true,"confidence":0.94,"scene_description":"A dashcam vehicle travels on a city street toward a signalized intersection in daylight, with a light-colored car ahead near
+ the right side of the lane. A dark car enters the intersection from the right and moves across the dashcam vehicle's path, ending up directly against the front of the dashcam vehicle.
+ ","main_objects":["dashcam vehicle","dark car crossing from the right","light-colored car ahead","oncoming vehicles","traffic lights","urban intersection
