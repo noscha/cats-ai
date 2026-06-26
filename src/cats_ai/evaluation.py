@@ -1,5 +1,5 @@
 from cats_ai.model import load_model_and_processor
-from cats_ai.prompts import ACCIDENT_PREDICTION
+from cats_ai.prompts import ACCIDENT_PREDICTION, ACCIDENT_ANALYSIS
 from cats_ai.config import MODEL_OUTPUT_PATH
 from cats_ai.validation import validate_json
 from cats_ai.inference import query
@@ -68,4 +68,4 @@ def trial(prompt_schema_pair, masking, sample_fn=sample_generator):
 
 
 def experiment():
-    trial(ACCIDENT_PREDICTION, True, sample_generator_limited)
+    trial(ACCIDENT_ANALYSIS, False, sample_generator)

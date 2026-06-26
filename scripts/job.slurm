@@ -4,9 +4,10 @@
 #SBATCH --error=slurm/cats_ai%j.err
 #SBATCH --partition=main
 #SBATCH --time=99:00:00
-#SBATCH --gres=gpu:1
+#SBATCH --gres=gpu:4
 #SBATCH --cpus-per-task=8
 #SBATCH --ntasks=1
 #SBATCH --mem=64GB
 
-uv run python run_trial.py.py
+uv sync
+uv run python run_trial.py

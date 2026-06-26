@@ -9,8 +9,7 @@ Output ONLY valid raw JSON with this schema:
   "scene_description": "...",
   "main_objects": ["..."],
   "risk_factors": ["..."],
-  "reasoning": "...",
-  "uncertainty": "low"
+  "reasoning": "..."
 }
 
 Rules:
@@ -25,7 +24,6 @@ Rules:
 - Do not list the accident itself as a risk factor; avoid entries like "collision", "visible impact", or "crash".
 - If no accident is visible and no clear risk factors are visible, use ["none obvious"].
 - reasoning should explain the accident label using visible evidence in 2-3 concise sentences.
-- uncertainty must be one of: "low", "medium", "high".
 - Do not invent causes, traffic violations, intentions, hidden events, or unrealistic objects/events that are not visually supported.
 - Output raw JSON only. Do not wrap it in Markdown. Do not use ```json code fences.
 """.strip()
@@ -57,10 +55,6 @@ ACCIDENT_ANALYSIS_SCHEMA = {
             "type": "string",
             "minLength": 1,
         },
-        "uncertainty": {
-            "type": "string",
-            "enum": ["low", "medium", "high"],
-        },
     },
     "required": [
         "accident_present",
@@ -69,7 +63,6 @@ ACCIDENT_ANALYSIS_SCHEMA = {
         "main_objects",
         "risk_factors",
         "reasoning",
-        "uncertainty",
     ],
     "additionalProperties": False,
 }
