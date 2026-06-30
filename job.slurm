@@ -10,4 +10,4 @@
 #SBATCH --mem=64GB
 
 uv sync
-uv run python run_trial.py
+uv run python main.py
