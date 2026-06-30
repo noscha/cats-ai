@@ -20,6 +20,7 @@ MODEL_OUTPUT_PATH = OUTPUT_ROOT / "trials"
 SFT_PATH = OUTPUT_ROOT / "sft"
 
 MODEL_ID = "Qwen/Qwen3-VL-2B-Instruct"
+HF_TOKEN = open("token.txt", "r").readline()
 MAX_NEW_TOKENS = 500  # 400 and above for analysis, 64 for accident detection
 
 
