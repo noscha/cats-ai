@@ -6,7 +6,7 @@ def sample_generator():
     """
     Generator for video files
     """
-    for path_str in glob.iglob("**/*.mp4", root_dir=ROOT, recursive=True):
+    for path_str in sorted(glob.iglob("**/*.mp4", root_dir=ROOT, recursive=True)):
         rel_path = Path(path_str)
         full_path = ROOT / rel_path
 
