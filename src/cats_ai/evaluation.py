@@ -10,13 +10,13 @@ from collections import Counter
 import json
 import shutil
 
-import time
+from datetime import datetime
 
 
 def trial(prompt_schema_pair, masking, sample_fn=sample_generator):
 
     tmp_dir = Path(tempfile.mkdtemp(prefix="carcrash_masked_"))
-    print(f"{time.time()} Temp folder: {tmp_dir}")
+    print(f"{datetime.now().strftime("%Y-%m-%d %H:%M:%S")} Temp folder: {tmp_dir}")
 
     results = []
     invalid_counter = 0
