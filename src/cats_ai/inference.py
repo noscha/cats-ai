@@ -5,6 +5,8 @@ from qwen_vl_utils import process_vision_info
 from cats_ai.messages import build_messages
 from cats_ai.video import get_last_non_accident_frame, set_frames
 
+import time
+
 
 def query(video_path, prompt, model, processor, crash_masking=False, tmp_dir=None):
     """
@@ -17,14 +19,14 @@ def query(video_path, prompt, model, processor, crash_masking=False, tmp_dir=Non
         video_path = set_frames(video_path, last_non_accident_frame, tmp_dir)
 
     messages = build_messages(video_path, prompt, last_non_accident_frame)
-    print("Build message done", flush=True)
+    print(f"{time.time()} Build message done", flush=True)
 
     text = processor.apply_chat_template(
         messages,
         tokenize=False,
         add_generation_prompt=True,
     )
-    print("apply_chat_template done", flush=True)
+    print(f"{time.time()} apply_chat_template done", flush=True)
 
     images, videos, video_kwargs = process_vision_info(
         messages,
@@ -32,7 +34,7 @@ def query(video_path, prompt, model, processor, crash_masking=False, tmp_dir=Non
         return_video_metadata=True,
     )
 
-    print("process_vision_info done", flush=True)
+    print(f"{time.time()} process_vision_info done", flush=True)
 
     videos, video_metadata = zip(*videos)
     videos = list(videos)
@@ -47,7 +49,7 @@ def query(video_path, prompt, model, processor, crash_masking=False, tmp_dir=Non
         **video_kwargs,
     ).to(model.device)
 
-    print("processor done", flush=True)
+    print(f"{time.time()} processor done", flush=True)
 
     with torch.inference_mode():
         generated_ids = model.generate(
@@ -57,6 +59,7 @@ def query(video_path, prompt, model, processor, crash_masking=False, tmp_dir=Non
         )
 
     print("inference done", flush=True)
+    print(f"{time.time()} Build message done", flush=True)
 
     generated_ids_trimmed = [
         out_ids[len(in_ids) :]
@@ -69,6 +72,6 @@ def query(video_path, prompt, model, processor, crash_masking=False, tmp_dir=Non
         clean_up_tokenization_spaces=False,
     )[0]
 
-    print("response done", flush=True)
+    print(f"{time.time()} response done", flush=True)
 
     return response
