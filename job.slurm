@@ -4,8 +4,7 @@
 #SBATCH --error=slurm/cats_ai%j.err
 #SBATCH --partition=main
 #SBATCH --time=99:00:00
-#SBATCH --gres=gpu:1
-#SBATCH --nodelist=gpu-a100-[1-4]
+#SBATCH --nodelist=gpu-a100-2
 #SBATCH --cpus-per-task=8
 #SBATCH --ntasks=1
 #SBATCH --mem=64GB
@@ -17,3 +16,6 @@ export PYTHONUNBUFFERED=1
 
 uv sync
 srun uv run python main.py
+
+#source /mnt/stud/home/nschager/cats-ai/.venv/bin/activate
+#srun python main.py

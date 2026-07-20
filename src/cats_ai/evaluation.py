@@ -13,9 +13,8 @@ import shutil
 
 def trial(prompt_schema_pair, masking, sample_fn=sample_generator):
 
-    if masking:
-        tmp_dir = Path(tempfile.mkdtemp(prefix="carcrash_masked_"))
-        print(f"Temp folder: {tmp_dir}")
+    tmp_dir = Path(tempfile.mkdtemp(prefix="carcrash_masked_"))
+    print(f"Temp folder: {tmp_dir}")
 
     results = []
     invalid_counter = 0
@@ -24,7 +23,7 @@ def trial(prompt_schema_pair, masking, sample_fn=sample_generator):
     model, processor = load_model_and_processor()
 
     for i, (video_path, label) in enumerate(sample_fn(), start=1):
-        print(f"\n[{i}] {label} -> {video_path}", flush=True))
+        print(f"\n[{i}] {label} -> {video_path}", flush=True)
         
         out = query(str(video_path), prompt, model=model, processor=processor, crash_masking=masking, tmp_dir=tmp_dir)
         out = validate_json(out, schema)

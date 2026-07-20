@@ -1,3 +1,4 @@
+from sympy.physics.quantum.trace import Tr
 import torch
 from cats_ai.config import MAX_NEW_TOKENS
 from qwen_vl_utils import process_vision_info
@@ -16,18 +17,22 @@ def query(video_path, prompt, model, processor, crash_masking=False, tmp_dir=Non
         video_path = set_frames(video_path, last_non_accident_frame, tmp_dir)
 
     messages = build_messages(video_path, prompt, last_non_accident_frame)
+    print("Build message done", flush=True)
 
     text = processor.apply_chat_template(
         messages,
         tokenize=False,
         add_generation_prompt=True,
     )
+    print("apply_chat_template done", flush=True)
 
     images, videos, video_kwargs = process_vision_info(
         messages,
         return_video_kwargs=True,
         return_video_metadata=True,
     )
+
+    print("process_vision_info done", flush=True)
 
     videos, video_metadata = zip(*videos)
     videos = list(videos)
@@ -42,12 +47,16 @@ def query(video_path, prompt, model, processor, crash_masking=False, tmp_dir=Non
         **video_kwargs,
     ).to(model.device)
 
+    print("processor done", flush=True)
+
     with torch.inference_mode():
         generated_ids = model.generate(
             **inputs,
             max_new_tokens=MAX_NEW_TOKENS,
             do_sample=False,
         )
+
+    print("inference done", flush=True)
 
     generated_ids_trimmed = [
         out_ids[len(in_ids) :]
@@ -59,5 +68,7 @@ def query(video_path, prompt, model, processor, crash_masking=False, tmp_dir=Non
         skip_special_tokens=True,
         clean_up_tokenization_spaces=False,
     )[0]
+
+    print("response done", flush=True)
 
     return response
