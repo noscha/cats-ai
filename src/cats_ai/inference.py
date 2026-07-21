@@ -58,8 +58,7 @@ def query(video_path, prompt, model, processor, crash_masking=False, tmp_dir=Non
             do_sample=False,
         )
 
-    print("inference done", flush=True)
-    print(f"{datetime.now().strftime("%Y-%m-%d %H:%M:%S")} Build message done", flush=True)
+    print(f"{datetime.now().strftime("%Y-%m-%d %H:%M:%S")} Inference done", flush=True)
 
     generated_ids_trimmed = [
         out_ids[len(in_ids) :]
