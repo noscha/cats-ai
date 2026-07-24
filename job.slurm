@@ -5,6 +5,7 @@
 #SBATCH --partition=main
 #SBATCH --time=99:00:00
 #SBATCH --nodelist=gpu-a100-2
+#SBATCH --gres=gpu:1
 #SBATCH --cpus-per-task=8
 #SBATCH --ntasks=1
 #SBATCH --mem=64GB

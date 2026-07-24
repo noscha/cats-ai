@@ -25,4 +25,7 @@ def load_model_and_processor(model_id: str = MODEL_ID):
         token=HF_TOKEN,
     )
 
+    print(model.hf_device_map, flush=True)
+    print(next(model.parameters()).device, next(model.parameters()).dtype, flush=True)
+
     return model, processor
