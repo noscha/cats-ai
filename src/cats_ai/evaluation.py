@@ -5,7 +5,7 @@ from collections import Counter
 from datetime import datetime
 from pathlib import Path
 
-from cats_ai.config import MODEL_OUTPUT_PATH, seed_everything
+from cats_ai.config import MODEL_OUTPUT_PATH, seed_everything, ROOT
 from cats_ai.inference import query
 from cats_ai.model import load_model_and_processor
 from cats_ai.prompts import ACCIDENT_PREDICTION, ACCIDENT_ANALYSIS, ACCIDENT_DETECTION
@@ -13,7 +13,7 @@ from cats_ai.sampling import sample_generator
 from cats_ai.validation import validate_json
 
 
-def trial(prompt_schema_pair, masking, sample_fn=sample_generator):
+def trial(root, prompt_schema_pair, masking, sample_fn=sample_generator):
 
     tag = datetime.now().strftime("%Y-%m-%d_%H:%M")
     (MODEL_OUTPUT_PATH / tag).mkdir(parents=True, exist_ok=True)
@@ -25,7 +25,7 @@ def trial(prompt_schema_pair, masking, sample_fn=sample_generator):
     prompt, schema = prompt_schema_pair
     model, processor = load_model_and_processor()
 
-    for i, (video_path, label) in enumerate(sample_fn(), start=1):
+    for i, (video_path, label) in enumerate(sample_fn(root), start=1):
         print(f"\n[{i}] {label} -> {video_path}", flush=True)
 
         out = query(
@@ -78,5 +78,5 @@ def trial(prompt_schema_pair, masking, sample_fn=sample_generator):
 def experiment():
     seed_everything(deterministic=True)
     trial(
-        ACCIDENT_DETECTION, False, sample_generator
+        ROOT, ACCIDENT_DETECTION, False, sample_generator
     )  # masking must be true for prediction

@@ -8,9 +8,8 @@ import torch
 SEED = 42
 _RNG = random.Random(SEED + 1)
 
-ROOT = Path("CarCrash/videos")  # Path("/scratch/cats-ai/CarCrash/videos")#
-NORMAL_DIR = ROOT / "Normal"
-CRASH_DIR = ROOT / "Crash-1500"
+ROOT = Path("CarCrash/videos")
+ROOT_CLUSTER = Path("/scratch/cats-ai/CarCrash/videos")
 NFRAMES = 50
 N_PER_CLASS_CRASH = 150  # 10% of data
 N_PER_CLASS_NORMAL = 300  # 10% of data
