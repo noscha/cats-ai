@@ -1,6 +1,7 @@
-import re
-from jsonschema import ValidationError, validate
 import json
+import re
+
+from jsonschema import ValidationError, validate
 
 
 def extract_json(text: str):

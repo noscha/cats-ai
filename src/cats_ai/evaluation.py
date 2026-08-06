@@ -1,22 +1,23 @@
-from cats_ai.model import load_model_and_processor
-from cats_ai.prompts import ACCIDENT_PREDICTION, ACCIDENT_ANALYSIS
-from cats_ai.config import MODEL_OUTPUT_PATH
-from cats_ai.validation import validate_json
-from cats_ai.inference import query
-from cats_ai.sampling import sample_generator_limited, sample_generator
-import tempfile
-from pathlib import Path
-from collections import Counter
 import json
 import shutil
-
+import tempfile
+from collections import Counter
 from datetime import datetime
+from pathlib import Path
+
+from cats_ai.config import MODEL_OUTPUT_PATH, seed_everything
+from cats_ai.inference import query
+from cats_ai.model import load_model_and_processor
+from cats_ai.prompts import ACCIDENT_PREDICTION, ACCIDENT_ANALYSIS, ACCIDENT_DETECTION
+from cats_ai.sampling import sample_generator
+from cats_ai.validation import validate_json
 
 
 def trial(prompt_schema_pair, masking, sample_fn=sample_generator):
 
+    tag = datetime.now().strftime("%Y-%m-%d_%H:%M")
+    (MODEL_OUTPUT_PATH / tag).mkdir(parents=True, exist_ok=True)
     tmp_dir = Path(tempfile.mkdtemp(prefix="carcrash_masked_"))
-    print(f"{datetime.now().strftime("%Y-%m-%d %H:%M:%S")} Temp folder: {tmp_dir}")
 
     results = []
     invalid_counter = 0
@@ -26,8 +27,15 @@ def trial(prompt_schema_pair, masking, sample_fn=sample_generator):
 
     for i, (video_path, label) in enumerate(sample_fn(), start=1):
         print(f"\n[{i}] {label} -> {video_path}", flush=True)
-        
-        out = query(str(video_path), prompt, model=model, processor=processor, crash_masking=masking, tmp_dir=tmp_dir)
+
+        out = query(
+            str(video_path),
+            prompt,
+            model=model,
+            processor=processor,
+            crash_masking=masking,
+            tmp_dir=tmp_dir,
+        )
         out = validate_json(out, schema)
 
         if out:
@@ -39,9 +47,7 @@ def trial(prompt_schema_pair, masking, sample_fn=sample_generator):
                     "label": label,
                     "pred_accident": pred_accident,
                     "json": out,
-                    "correct_detection": (
-                        pred_accident == (True if label == "crash" else False)
-                    ),
+                    "correct_detection": (pred_accident == (label == "crash")),
                 }
             )
 
@@ -70,4 +76,7 @@ def trial(prompt_schema_pair, masking, sample_fn=sample_generator):
 
 
 def experiment():
-    trial(ACCIDENT_ANALYSIS, False, sample_generator)
+    seed_everything(deterministic=True)
+    trial(
+        ACCIDENT_DETECTION, False, sample_generator
+    )  # masking must be true for prediction

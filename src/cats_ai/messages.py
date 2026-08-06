@@ -11,6 +11,7 @@ def build_messages(
 ):
 
 
+    NFRAMES = 50
     if video_path in ["CarCrash/videos/Normal/000615.mp4", "CarCrash/videos/Normal/002058.mp4"]:
         NFRAMES = 49
 

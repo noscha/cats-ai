@@ -1,6 +1,8 @@
-from cats_ai.config import ROOT, N_PER_CLASS_NORMAL, N_PER_CLASS_CRASH, get_rng
-from pathlib import Path
 import glob
+from pathlib import Path
+
+from cats_ai.config import N_PER_CLASS_CRASH, N_PER_CLASS_NORMAL, ROOT, get_rng
+
 
 def sample_generator():
     """

@@ -1,6 +1,6 @@
+import os
 import random
 from pathlib import Path
-import os
 
 import numpy as np
 import torch
@@ -8,7 +8,7 @@ import torch
 SEED = 42
 _RNG = random.Random(SEED + 1)
 
-ROOT = Path("CarCrash/videos")#Path("/scratch/cats-ai/CarCrash/videos")# 
+ROOT = Path("CarCrash/videos")  # Path("/scratch/cats-ai/CarCrash/videos")#
 NORMAL_DIR = ROOT / "Normal"
 CRASH_DIR = ROOT / "Crash-1500"
 NFRAMES = 50

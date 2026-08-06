@@ -1,7 +1,7 @@
 import torch
 from transformers import AutoModelForImageTextToText, AutoProcessor
 
-from cats_ai.config import MODEL_ID, HF_TOKEN
+from cats_ai.config import HF_TOKEN, MODEL_ID
 
 
 def load_model_and_processor(model_id: str = MODEL_ID):
@@ -16,9 +16,9 @@ def load_model_and_processor(model_id: str = MODEL_ID):
 
     # Deactivate Learning
     model.eval()  # train()
-    model.config.use_cache = True # False
+    model.config.use_cache = True  # False
     if hasattr(model, "gradient_checkpointing_disable"):
-        model.gradient_checkpointing_disable() # _enable()
+        model.gradient_checkpointing_disable()  # _enable()
 
     processor = AutoProcessor.from_pretrained(
         model_id,
