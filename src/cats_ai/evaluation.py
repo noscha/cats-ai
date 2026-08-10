@@ -5,10 +5,9 @@ from collections import Counter
 from datetime import datetime
 from pathlib import Path
 
-from cats_ai.config import MODEL_OUTPUT_PATH, seed_everything, ROOT
+from cats_ai.config import MODEL_OUTPUT_PATH, seed_everything, ROOT, ROOT_CLUSTER
 from cats_ai.inference import query
 from cats_ai.model import load_model_and_processor
-from cats_ai.prompts import ACCIDENT_PREDICTION, ACCIDENT_ANALYSIS, ACCIDENT_DETECTION
 from cats_ai.sampling import sample_generator
 from cats_ai.validation import validate_json
 
@@ -75,8 +74,8 @@ def trial(root, prompt_schema_pair, masking, sample_fn=sample_generator):
     print(f"Deleted temp folder: {tmp_dir}")
 
 
-def experiment():
+def experiment(prompt_schema_pair, masking):
     seed_everything(deterministic=True)
     trial(
-        ROOT, ACCIDENT_DETECTION, False, sample_generator
-    )  # masking must be true for prediction
+        ROOT, prompt_schema_pair, masking, sample_generator
+    )  # masking=true for prediction

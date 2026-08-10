@@ -28,6 +28,7 @@ def seed_everything(seed: int = 42, deterministic: bool = False) -> None:
     Seed common randomness sources.
     """
     os.environ["PYTHONHASHSEED"] = str(seed)
+    os.environ["CUBLAS_WORKSPACE_CONFIG"] = ":4096:8"  # set deterministic
 
     random.seed(seed)
     np.random.seed(seed)
