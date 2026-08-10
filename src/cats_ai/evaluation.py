@@ -6,7 +6,7 @@ from datetime import datetime
 from pathlib import Path
 
 from cats_ai.config import MODEL_OUTPUT_PATH, ROOT, seed_everything
-from cats_ai.inference import query
+from cats_ai.inference import query_video
 from cats_ai.model import load_model_and_processor
 from cats_ai.prompts import VIDEO_SOURCE
 from cats_ai.sampling import sample_generator
@@ -26,7 +26,7 @@ def trial_accident(root, prompt_schema_pair, masking, sample_fn=sample_generator
     for i, (video_path, label) in enumerate(sample_fn(root), start=1):
         print(f"\n[{i}] {label} -> {video_path}", flush=True)
 
-        out = query(
+        out, last_non_accident_frame = query_video(
             str(video_path),
             prompt,
             model=model,
@@ -45,6 +45,7 @@ def trial_accident(root, prompt_schema_pair, masking, sample_fn=sample_generator
                     "label": label,
                     "pred_accident": pred_accident,
                     "json": out,
+                    "last_non_accident_frame": last_non_accident_frame,  # inf if not used
                     "correct_detection": (pred_accident == (label == "crash")),
                 }
             )
@@ -88,7 +89,7 @@ def trial_source(root, prompt_schema_pair, sample_fn=sample_generator):
     for i, (video_path, label) in enumerate(sample_fn(root), start=1):
         print(f"\n[{i}] {label} -> {video_path}", flush=True)
 
-        out = query(
+        out = query_video(
             str(video_path),
             prompt,
             model=model,
@@ -107,7 +108,7 @@ def trial_source(root, prompt_schema_pair, sample_fn=sample_generator):
                     "label": label,
                     "pred_source": pred_source,
                     "json": out,
-                    "correct_detection": (pred_source == (label == "crash")),
+                    "correct_source": (pred_source == (label == "crash")),
                 }
             )
 
@@ -116,7 +117,7 @@ def trial_source(root, prompt_schema_pair, sample_fn=sample_generator):
             invalid_counter += 1
 
     valid = len(results) / (len(results) + invalid_counter)
-    acc = sum(r["correct_detection"] for r in results) / len(results)
+    acc = sum(r["correct_source"] for r in results) / len(results)
 
     print("\n=== SUMMARY ===")
     print(f"Valid predictions: {valid * 100}%")

@@ -24,6 +24,7 @@ exploratory/
 analysis_results/
 plots/
 figures/
+slurm/
 *.png
 *.jpg
 *.jpeg
