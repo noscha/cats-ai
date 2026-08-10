@@ -134,25 +134,43 @@ ACCIDENT_PREDICTION_SCHEMA = {
 
 ###############################################################################################################################
 
+
+VIDEO_SOURCE_PROMPT = """
+You are analyzing a real-world driving or dashcam video.
+
+Decide which source type is most likely.
+
+Output ONLY valid raw JSON:
+
+{
+  "source_type": 0
+}
+
+Rules:
+- Use 0 for automotive/driving research dataset.
+- Use 1 for YouTube or consumer dashcam source.
+- Use 2 if the video could plausibly be from either source or there is not enough visible evidence to decide.
+- Base the decision only on visible characteristics of the video.
+- Output raw JSON only.
+""".strip()
+
+VIDEO_SOURCE_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "source_type": {
+            "type": "integer",
+            "enum": [0, 1, 2],
+        }
+    },
+    "required": ["source_type"],
+    "additionalProperties": False,
+}
+
+
+###############################################################################################################################
+
 ACCIDENT_ANALYSIS = (ACCIDENT_ANALYSIS_PROMPT, ACCIDENT_ANALYSIS_SCHEMA)
 ACCIDENT_DETECTION = (ACCIDENT_DETECTION_PROMPT, ACCIDENT_DETECTION_SCHEMA)
 ACCIDENT_PREDICTION = (ACCIDENT_PREDICTION_PROMPT, ACCIDENT_PREDICTION_SCHEMA)
 
-
-"""
-- Focus on near-term risk within the next few seconds after the clip ends.
-- Indicators may include unavoidable closing speed, loss of control, dangerous cut-ins, failure to yield, imminent intersection conflict, or pedestrians/cyclists in immediate danger.
-
-{
-  "accident_present": true,
-  "confidence": 0.91
-}
-
-"confidence": {
-    "type": "number",
-    "minimum": 0.0,
-    "maximum": 1.0
-}
-
-or try accident_likely
-"""
+VIDEO_SOURCE = (VIDEO_SOURCE_PROMPT, VIDEO_SOURCE_SCHEMA)

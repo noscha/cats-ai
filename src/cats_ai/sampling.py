@@ -4,7 +4,7 @@ from pathlib import Path
 from cats_ai.config import N_PER_CLASS_CRASH, N_PER_CLASS_NORMAL, get_rng
 
 
-def sample_generator(root):
+def sample_generator(root, only_crash=False):
     """
     Generator for video files
     """
@@ -17,10 +17,14 @@ def sample_generator(root):
         elif "Crash-1500" in rel_path.parts:
             label = "crash"
 
+        # skips non crash videos
+        if only_crash and label == "normal":
+            continue
+
         yield full_path, label
 
 
-def sample_generator_limited(root):
+def sample_generator_limited_percentage(root):
     """
     Yield a random balanced subset
     """

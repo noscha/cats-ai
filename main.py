@@ -1,16 +1,19 @@
 import argparse
 
-from cats_ai.evaluation import experiment
+from cats_ai.evaluation import experiment_accident, experiment_source
 from cats_ai.prompts import ACCIDENT_ANALYSIS, ACCIDENT_DETECTION, ACCIDENT_PREDICTION
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("-p", "--prompt", type=int, choices=[0, 1, 2])
+    parser.add_argument("-p", "--prompt", type=int, choices=[0, 1, 2, 3])
     args = parser.parse_args()
 
-    if args.prompt == 0:
-        experiment(ACCIDENT_PREDICTION, True)
-    elif args.prompt == 1:
-        experiment(ACCIDENT_DETECTION, False)
-    elif args.prompt == 2:
-        experiment(ACCIDENT_ANALYSIS, False)
+    match args.prompt:
+        case 0:
+            experiment_accident(ACCIDENT_PREDICTION, True)
+        case 1:
+            experiment_accident(ACCIDENT_DETECTION, False)
+        case 2:
+            experiment_accident(ACCIDENT_ANALYSIS, False)
+        case 3:
+            experiment_source()

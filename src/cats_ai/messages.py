@@ -1,7 +1,5 @@
 import json
 
-from cats_ai.config import NFRAMES
-
 
 def build_messages(
     video_path,
@@ -10,9 +8,11 @@ def build_messages(
     sft_target=None,
 ):
 
-
-    NFRAMES = 50
-    if video_path in ["CarCrash/videos/Normal/000615.mp4", "CarCrash/videos/Normal/002058.mp4"]:
+    NFRAMES = 50  # TODO fix
+    if video_path in [
+        "CarCrash/videos/Normal/000615.mp4",
+        "CarCrash/videos/Normal/002058.mp4",
+    ]:
         NFRAMES = 49
 
     messages = [
