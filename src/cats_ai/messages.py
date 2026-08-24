@@ -16,10 +16,7 @@ def build_messages(
         NFRAMES = 49
 
     nframes = min(NFRAMES, last_non_accident_frame)
-    """print("NF: ",nframes)
-    import cv2
-    cap = cv2.VideoCapture(video_path)
-    print("TF: ", int(cap.get(cv2.CAP_PROP_FRAME_COUNT)))"""
+    nframes -= nframes % 2  # qwen_vl_utils uses multiple of two for grouping
 
     messages = [
         {

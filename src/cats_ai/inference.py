@@ -6,7 +6,9 @@ from cats_ai.messages import build_messages
 from cats_ai.video import get_last_non_accident_frame, set_frames
 
 
-def query_video(video_path, prompt, model, processor, crash_masking=False, tmp_dir=None):
+def query_video(
+    video_path, prompt, model, processor, crash_masking=False, tmp_dir=None
+):
     """
     Query a video
     """
@@ -63,6 +65,7 @@ def query_video(video_path, prompt, model, processor, crash_masking=False, tmp_d
 
     return response, last_non_accident_frame
 
+
 def query_text(prompt, model, processor):
     """
     Query the model with text only.
@@ -100,7 +103,7 @@ def query_text(prompt, model, processor):
         )
 
     generated_ids_trimmed = [
-        out_ids[len(in_ids):]
+        out_ids[len(in_ids) :]
         for in_ids, out_ids in zip(inputs.input_ids, generated_ids)
     ]
 
