@@ -1,9 +1,11 @@
-import torch
-from transformers import TrainingArguments, Trainer
-from qwen_vl_utils import process_vision_info
 import json
-from torch.utils.data import Dataset
+
+import torch
 from peft import LoraConfig, get_peft_model
+from qwen_vl_utils import process_vision_info
+from torch.utils.data import Dataset
+from transformers import Trainer, TrainingArguments
+
 
 class VideoSFTDataset(Dataset):
     def __init__(self, jsonl_file):
