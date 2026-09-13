@@ -18,9 +18,12 @@ OUTPUT_ROOT = Path("outputs")
 MODEL_OUTPUT_PATH = OUTPUT_ROOT / "trials"
 SFT_PATH = OUTPUT_ROOT / "sft"
 
-MODEL_ID = "Qwen/Qwen3-VL-2B-Instruct"  # 2B and 8B are the only feasible models for our hardware
+MODEL_ID_2B = "Qwen/Qwen3-VL-2B-Instruct"
+MODEL_ID_4B = "Qwen/Qwen3-VL-4B-Instruct"
+MODEL_ID_8B = "Qwen/Qwen3-VL-8B-Instruct"
+
 HF_TOKEN = open("token.txt", "r").readline()
-MAX_NEW_TOKENS = 500  # 500 and above for analysis, 100 for accident detection
+MAX_NEW_TOKENS = 1000
 
 
 def seed_everything(seed: int = 42, deterministic: bool = False) -> None:

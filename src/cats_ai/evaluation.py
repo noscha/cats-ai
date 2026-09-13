@@ -13,7 +13,14 @@ from cats_ai.sampling import sample_generator
 from cats_ai.validation import validate_json
 
 
-def trial_accident(root, prompt_schema_pair, masking, sample_fn=sample_generator):
+def trial_accident(
+    root,
+    prompt_schema_pair,
+    masking,
+    savename,
+    sample_fn=sample_generator,
+    model_id="2B",
+):
 
     tmp_dir = Path(tempfile.mkdtemp(prefix="carcrash_masked_"))
 
@@ -21,7 +28,7 @@ def trial_accident(root, prompt_schema_pair, masking, sample_fn=sample_generator
     invalid_counter = 0
 
     prompt, schema = prompt_schema_pair
-    model, processor = load_model_and_processor()
+    model, processor = load_model_and_processor(model_id)
 
     for i, (video_path, label) in enumerate(sample_fn(root), start=1):
         print(f"\n[{i}] {label} -> {video_path}", flush=True)
@@ -66,7 +73,7 @@ def trial_accident(root, prompt_schema_pair, masking, sample_fn=sample_generator
 
     # save results
     tag = datetime.now().strftime("%Y-%m-%d_%H:%M:%S")
-    out_path = MODEL_OUTPUT_PATH / ("accident_" + tag)
+    out_path = MODEL_OUTPUT_PATH / (savename + "_" + model_id + "_" + tag)
     out_path.mkdir(parents=True, exist_ok=True)
     out_file = out_path / Path("trial_results.json")
     with open(out_file, "w", encoding="utf-8") as f:
@@ -78,13 +85,13 @@ def trial_accident(root, prompt_schema_pair, masking, sample_fn=sample_generator
     print(f"Deleted temp folder: {tmp_dir}")
 
 
-def trial_source(root, prompt_schema_pair, sample_fn=sample_generator):
+def trial_source(root, prompt_schema_pair, sample_fn=sample_generator, model_id="2B"):
 
     results = []
     invalid_counter = 0
 
     prompt, schema = prompt_schema_pair
-    model, processor = load_model_and_processor()
+    model, processor = load_model_and_processor(model_id)
 
     for i, (video_path, label) in enumerate(sample_fn(root), start=1):
         print(f"\n[{i}] {label} -> {video_path}", flush=True)
@@ -128,7 +135,7 @@ def trial_source(root, prompt_schema_pair, sample_fn=sample_generator):
 
     # save results
     tag = datetime.now().strftime("%Y-%m-%d_%H:%M:%S")
-    out_path = MODEL_OUTPUT_PATH / ("source_" + tag)
+    out_path = MODEL_OUTPUT_PATH / ("source_" + model_id + "_" + tag)
     out_path.mkdir(parents=True, exist_ok=True)
     out_file = out_path / Path("trial_results.json")
     with open(out_file, "w", encoding="utf-8") as f:
@@ -136,13 +143,13 @@ def trial_source(root, prompt_schema_pair, sample_fn=sample_generator):
     print(f"Saved to: {out_file.resolve()}")
 
 
-def experiment_accident(prompt_schema_pair, masking):
+def experiment_accident(prompt_schema_pair, masking, savename, model_id):
     seed_everything(deterministic=True)
     trial_accident(
-        ROOT, prompt_schema_pair, masking, sample_generator
+        ROOT, prompt_schema_pair, masking, savename, sample_generator, model_id
     )  # masking=true for prediction
 
 
-def experiment_source():
+def experiment_source(model_id):
     seed_everything(deterministic=True)
-    trial_source(ROOT, VIDEO_SOURCE, sample_generator)
+    trial_source(ROOT, VIDEO_SOURCE, sample_generator, model_id)

@@ -1,10 +1,18 @@
 import torch
 from transformers import AutoModelForImageTextToText, AutoProcessor
 
-from cats_ai.config import HF_TOKEN, MODEL_ID
+from cats_ai.config import HF_TOKEN, MODEL_ID_2B, MODEL_ID_4B, MODEL_ID_8B
 
 
-def load_model_and_processor(model_id: str = MODEL_ID):
+def load_model_and_processor(model_id: str):
+
+    match model_id:
+        case "2B":
+            model_id = MODEL_ID_2B
+        case "4B":
+            model_id = MODEL_ID_4B
+        case "8B":
+            model_id = MODEL_ID_8B
 
     model = AutoModelForImageTextToText.from_pretrained(
         model_id,

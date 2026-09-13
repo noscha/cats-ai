@@ -16,7 +16,7 @@ rsync -av /mnt/stud/home/nschager/cats-ai/CarCrash ${DATA_DIR}/
 export PYTHONUNBUFFERED=1
 
 uv sync
-srun uv run python main.py -p 2
+srun uv run python main.py -p 2 -m 2B
 
 #source /mnt/stud/home/nschager/cats-ai/.venv/bin/activate
 #srun python main.py
