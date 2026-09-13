@@ -96,7 +96,7 @@ def trial_source(root, prompt_schema_pair, sample_fn=sample_generator, model_id=
     for i, (video_path, label) in enumerate(sample_fn(root), start=1):
         print(f"\n[{i}] {label} -> {video_path}", flush=True)
 
-        out = query_video(
+        out, last_non_accident_frame = query_video(
             str(video_path),
             prompt,
             model=model,
@@ -115,6 +115,7 @@ def trial_source(root, prompt_schema_pair, sample_fn=sample_generator, model_id=
                     "label": label,
                     "pred_source": pred_source,
                     "json": out,
+                    "last_non_accident_frame": last_non_accident_frame,
                     "correct_source": (pred_source == (label == "crash")),
                 }
             )
